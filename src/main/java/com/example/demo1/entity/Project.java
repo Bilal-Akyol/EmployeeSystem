@@ -32,7 +32,7 @@ public class Project {
     private String EnvironmentInformation;
 
     @ManyToOne
-    @JoinColumn(name = "user-id")
+    @JoinColumn(name = "employee-id")
     @JsonManagedReference
     private Employee employee;
 

@@ -36,7 +36,7 @@ public class PersonalInformation {
     private MaritalStatus maritalStatus;
 
     @OneToOne
-    @JoinColumn(name = "user-id")
+    @JoinColumn(name = "employee-id")
     @JsonManagedReference
     private Employee employee;
 

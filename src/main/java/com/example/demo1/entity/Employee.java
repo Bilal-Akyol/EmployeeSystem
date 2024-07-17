@@ -63,15 +63,15 @@ public class Employee {
     @Column(name = "End-Date")
     private LocalDate endDate;
 
-    @OneToOne(mappedBy = "user", fetch =FetchType.LAZY)
+    @OneToOne(mappedBy = "employee", fetch =FetchType.LAZY)
     @JsonManagedReference
     private PersonalInformation personalInfermation;
 
-    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "employee", fetch = FetchType.LAZY)
     @JsonManagedReference
     private OtherInformation otherInformation;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Project> project;
 
