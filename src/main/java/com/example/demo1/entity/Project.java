@@ -1,6 +1,6 @@
 package com.example.demo1.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -12,28 +12,28 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn(name = "Project-Name")
+    @Column(name = "Project-Name")
     private String projectName;
 
     @Enumerated(EnumType.STRING)
-    @JoinColumn(name = "Proje-Type")
+    @Column(name = "Proje-Type")
     private ProjectType projectType;
 
-    @JoinColumn(name = "Department")
+    @Column(name = "Department")
     private String department;
 
-    @JoinColumn(name = "VPNusername")
+    @Column(name = "VPNusername")
     private String vPNUsername;
 
-    @JoinColumn(name = "VPNpassword")
+    @Column(name = "VPNpassword")
     private String vPNpassword;
 
-    @JoinColumn(name = "EnvironmentInformation")
+    @Column(name = "EnvironmentInformation")
     private String EnvironmentInformation;
 
     @ManyToOne
     @JoinColumn(name = "employee-id")
-    @JsonManagedReference
+    @JsonBackReference
     private Employee employee;
 
 

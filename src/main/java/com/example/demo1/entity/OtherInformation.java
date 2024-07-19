@@ -1,5 +1,6 @@
 package com.example.demo1.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -12,24 +13,24 @@ public class OtherInformation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn(name = "address")
+    @Column(name = "address")
     private String address;
 
-    @JoinColumn(name = "Bank-Name")
+    @Column(name = "Bank-Name")
     private String bankName;
 
-    @JoinColumn(name = "Iban-Number")
+    @Column(name = "Iban-Number")
     private String ibanNumber;
 
-    @JoinColumn(name = "EmergencyContactName")
+    @Column(name = "EmergencyContactName")
     private String emergencyContactName;
 
-    @JoinColumn(name = "EmergencyContactNumber")
+    @Column(name = "EmergencyContactNumber")
     private String emergencyContactNumber;
 
     @OneToOne
     @JoinColumn(name = "employee-id")
-    @JsonManagedReference
+    @JsonBackReference
     private Employee employee;
 
 

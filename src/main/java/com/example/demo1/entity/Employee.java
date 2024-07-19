@@ -26,10 +26,10 @@ public class Employee {
     @JsonProperty(value = "lastName")
     private String lastName;
 
-
     @JoinColumn(name = "Director")
     @OneToOne()
     private Employee director;
+
 
     @Enumerated(EnumType.STRING)
     @JsonProperty(value = "Level")
@@ -37,27 +37,28 @@ public class Employee {
 
 
     @NotBlank
-    @JoinColumn(name = "Phone-Number", unique = true)
+    @Column(name = "Phone-Number", unique = true)
     private String phoneNumber;
 
     @Email
     @NotBlank
-    @JoinColumn(name = "Email",unique = true)
+    @Column(name = "eMail", unique = true)
+    @JsonProperty(value = "eMail")
     private String eMail;
 
     @Enumerated(EnumType.STRING)
-    @JoinColumn(name = "Work-Type")
+    @Column(name = "Work-Type")
     private WorkType workType;
 
     @Enumerated(EnumType.STRING)
-    @JoinColumn(name = "Contract-Type")
+    @Column(name = "Contract-Type")
     private ContractType contractType;
 
     @Enumerated(EnumType.STRING)
-    @JoinColumn(name = "Team")
+    @Column(name = "Team")
     private Team team;
 
-    @JoinColumn(name = "Start-Date")
+    @Column(name = "Start-Date")
     private LocalDate startDate;
 
     @Column(name = "End-Date")
@@ -65,7 +66,7 @@ public class Employee {
 
     @OneToOne(mappedBy = "employee", fetch =FetchType.LAZY)
     @JsonManagedReference
-    private PersonalInformation personalInfermation;
+    private PersonalInformation personalInformation;
 
     @OneToOne(mappedBy = "employee", fetch = FetchType.LAZY)
     @JsonManagedReference
@@ -74,5 +75,6 @@ public class Employee {
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Project> project;
+
 
 }

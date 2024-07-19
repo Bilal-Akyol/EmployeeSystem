@@ -1,6 +1,6 @@
 package com.example.demo1.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -16,28 +16,28 @@ public class PersonalInformation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn(name = "Birth-Date")
+    @Column(name = "Birth-Date")
     private LocalDate birthDate;
 
     @NotBlank
-    @JoinColumn(name = "National-Id",unique = true)
+    @Column(name = "National-Id",unique = true)
     private String nationalId;
 
     @Enumerated(EnumType.STRING)
-    @JoinColumn(name = "Military-Service")
+    @Column(name = "Military-Service")
     private Military military;
 
     @Enumerated(EnumType.STRING)
-    @JoinColumn(name = "Gender")
+    @Column(name = "Gender")
     private Gender gender;
 
     @Enumerated(EnumType.STRING)
-    @JoinColumn(name = "Marital-Status")
+    @Column(name = "Marital-Status")
     private MaritalStatus maritalStatus;
 
     @OneToOne
-    @JoinColumn(name = "employee-id")
-    @JsonManagedReference
+    @JoinColumn(name = "employeeId")
+    @JsonBackReference
     private Employee employee;
 
 
