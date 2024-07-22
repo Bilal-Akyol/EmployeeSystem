@@ -1,5 +1,6 @@
-package com.example.demo1.entity;
+package com.example.demo1.entity.entities;
 
+import com.example.demo1.entity.enums.ProjectType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;

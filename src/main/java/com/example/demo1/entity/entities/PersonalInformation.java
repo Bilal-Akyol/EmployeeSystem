@@ -1,5 +1,8 @@
-package com.example.demo1.entity;
+package com.example.demo1.entity.entities;
 
+import com.example.demo1.entity.enums.Gender;
+import com.example.demo1.entity.enums.MaritalStatus;
+import com.example.demo1.entity.enums.Military;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

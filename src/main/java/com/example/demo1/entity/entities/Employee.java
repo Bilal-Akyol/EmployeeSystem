@@ -1,5 +1,9 @@
-package com.example.demo1.entity;
+package com.example.demo1.entity.entities;
 
+import com.example.demo1.entity.enums.ContractType;
+import com.example.demo1.entity.enums.Level;
+import com.example.demo1.entity.enums.Team;
+import com.example.demo1.entity.enums.WorkType;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
