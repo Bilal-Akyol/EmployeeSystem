@@ -1,8 +1,6 @@
 package com.example.demo1.controller;
 
-import com.example.demo1.database.dto.requets.PersonalInfermationRequets;
-import com.example.demo1.database.dto.response.PersonalInformationResponse;
-import com.example.demo1.entity.entities.PersonalInformation;
+import com.example.demo1.mapstruct.dto.PersonalInformationDto;
 import com.example.demo1.sevice.PersonalInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,18 +18,23 @@ public class PersonalInformationController {
     }
 
     @GetMapping
-    public List<PersonalInformationResponse> getAllPersonalInformation(){
+    public List<PersonalInformationDto> getAllPersonalInformation(){
         return personalInformationService.getAllPersonalInformation();
     }
     @PostMapping("/add")
-    public PersonalInformation addPersonalInformation(@RequestBody PersonalInfermationRequets newPersonalInformation)
+    public PersonalInformationDto addPersonalInformation(@RequestBody PersonalInformationDto newPersonalInformation)
     {
         return personalInformationService.addPersonalInformation(newPersonalInformation);
     }
     @PutMapping("/update/{id}")
-    public PersonalInformation updatePersonalInformation(@PathVariable Long id, @RequestBody PersonalInfermationRequets personalInformation)
+    public PersonalInformationDto updatePersonalInformation(@PathVariable Long id, @RequestBody PersonalInformationDto updatePersonalInformationDto)
     {
-        return personalInformationService.updatePersonalInformation(id,personalInformation);
+        return personalInformationService.updatePersonalInformation(id,updatePersonalInformationDto);
+    }
+    @DeleteMapping("/delete/{id}")
+    public void deletePersonalInformation(@PathVariable Long id)
+    {
+        personalInformationService.deletePersonalInformation(id);
     }
 
 }

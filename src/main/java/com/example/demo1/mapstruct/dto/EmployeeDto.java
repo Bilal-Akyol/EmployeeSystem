@@ -1,4 +1,4 @@
-package com.example.demo1.database.dto.requets;
+package com.example.demo1.mapstruct.dto;
 
 import com.example.demo1.entity.entities.Employee;
 import com.example.demo1.entity.entities.OtherInformation;
@@ -18,7 +18,10 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmployeeRequets {
+public class EmployeeDto {
+
+    private Long id;
+
 
     private String firstName;
 

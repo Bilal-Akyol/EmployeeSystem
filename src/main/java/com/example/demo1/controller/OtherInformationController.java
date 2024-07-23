@@ -1,8 +1,6 @@
 package com.example.demo1.controller;
 
-import com.example.demo1.database.dto.requets.OtherInformationRequets;
-import com.example.demo1.database.dto.response.OtherInformationResponse;
-import com.example.demo1.entity.entities.OtherInformation;
+import com.example.demo1.mapstruct.dto.OtherInformationDto;
 import com.example.demo1.sevice.OtherInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,21 +18,26 @@ public class OtherInformationController {
     }
 
     @GetMapping
-    public List<OtherInformationResponse> getAllOtherInformation()
+    public List<OtherInformationDto> getAllOtherInformation()
     {
         return otherInformationService.getAllOtherInformation();
     }
 
     @PostMapping("/add")
-    public OtherInformation addOtherInformation(@RequestBody OtherInformationRequets newOtherInformation)
+    public OtherInformationDto addOtherInformation(@RequestBody OtherInformationDto newOtherInformation)
     {
         return otherInformationService.addOtherInformation(newOtherInformation);
     }
     @PutMapping("/update/{id}")
-    public OtherInformation updateOtherInformation(@PathVariable Long id,@RequestBody OtherInformationRequets otherInformationRequets)
+    public OtherInformationDto updateOtherInformation(@PathVariable Long id,@RequestBody OtherInformationDto updateOtherInformationDto)
     {
 
-        return otherInformationService.updateOtherInformation(id,otherInformationRequets);
+        return otherInformationService.updateOtherInformation(id,updateOtherInformationDto);
+    }
+    @DeleteMapping("/delete/{id}")
+    public void deleteOtherInformation(@PathVariable Long id)
+    {
+        otherInformationService.deleteOtherInformation(id);
     }
 
 }

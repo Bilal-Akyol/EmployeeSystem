@@ -1,4 +1,4 @@
-package com.example.demo1.database.dto.requets;
+package com.example.demo1.mapstruct.dto;
 
 import com.example.demo1.entity.entities.Employee;
 import com.example.demo1.entity.enums.Gender;
@@ -12,16 +12,19 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OtherInformationRequets {
-    private String address;
+public class PersonalInformationDto {
 
-    private String bankName;
+    private Long id;
 
-    private String ibanNumber;
+    private LocalDate birthDate;
 
-    private String emergencyContactName;
+    private String nationalId;
 
-    private String emergencyContactNumber;
+    private Military military;
+
+    private Gender gender;
+
+    private MaritalStatus maritalStatus;
 
     private Employee employee;
 }

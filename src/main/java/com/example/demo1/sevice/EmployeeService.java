@@ -1,9 +1,9 @@
 package com.example.demo1.sevice;
 
-import com.example.demo1.database.dto.requets.EmployeeRequets;
-import com.example.demo1.database.dto.response.EmployeeResponse;
+import com.example.demo1.mapstruct.dto.EmployeeDto;
+import com.example.demo1.mapstruct.mappers.MapStructMapper;
+import com.example.demo1.repository.EmployeeRepository;
 import com.example.demo1.entity.entities.Employee;
-import com.example.demo1.database.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,16 +15,21 @@ public class EmployeeService {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+    private MapStructMapper mapStructMapper;
 
-    public EmployeeService(EmployeeRepository employeeRepository) {
+
+    public EmployeeService(EmployeeRepository employeeRepository, MapStructMapper mapStructMapper) {
         this.employeeRepository = employeeRepository;
+        this.mapStructMapper=mapStructMapper;
+
+
     }
 
-    public List<EmployeeResponse> getAllEmployee() {
+    public List<EmployeeDto> getAllEmployee() {
         List<Employee> employees = employeeRepository.findAll();
-        List<EmployeeResponse> employeeResponses = new ArrayList<>();
+        List<EmployeeDto> employeeResponses = new ArrayList<>();
         for (Employee employee : employees) {
-            EmployeeResponse responseItem = new EmployeeResponse();
+            EmployeeDto responseItem = new EmployeeDto();
             responseItem.setId(employee.getId());
             responseItem.setFirstName(employee.getFirstName());
             responseItem.setLastName(employee.getLastName());
@@ -45,50 +50,52 @@ public class EmployeeService {
         return employeeResponses;
     }
 
-    public Employee addEmployee(EmployeeRequets employeeRequets) {
-        Employee employee=new Employee();
-        employee.setFirstName(employeeRequets.getFirstName());
-        employee.setLastName(employeeRequets.getLastName());
-        employee.setDirector(employeeRequets.getDirector());
-        employee.setLevel(employeeRequets.getLevel());
-        employee.setPhoneNumber(employeeRequets.getPhoneNumber());
-        employee.setEMail(employeeRequets.getEMail());
-        employee.setWorkType(employeeRequets.getWorkType());
-        employee.setContractType(employeeRequets.getContractType());
-        employee.setTeam(employeeRequets.getTeam());
-        employee.setStartDate(employeeRequets.getStartDate());
-        employee.setEndDate(employeeRequets.getEndDate());
-        employee.setPersonalInformation(employeeRequets.getPersonalInformation());
-        employee.setOtherInformation(employeeRequets.getOtherInformation());
-        employee.setProject(employeeRequets.getProject());
+    public EmployeeDto addEmployee(EmployeeDto employeeDto) {
+        Employee employee= mapStructMapper.employeeToDto(employeeDto);
+        employee.setFirstName(employeeDto.getFirstName());
+        employee.setLastName(employeeDto.getLastName());
+        employee.setDirector(employeeDto.getDirector());
+        employee.setLevel(employeeDto.getLevel());
+        employee.setPhoneNumber(employeeDto.getPhoneNumber());
+        employee.setEMail(employeeDto.getEMail());
+        employee.setWorkType(employeeDto.getWorkType());
+        employee.setContractType(employeeDto.getContractType());
+        employee.setTeam(employeeDto.getTeam());
+        employee.setStartDate(employeeDto.getStartDate());
+        employee.setEndDate(employeeDto.getEndDate());
+        employee.setPersonalInformation(employeeDto.getPersonalInformation());
+        employee.setOtherInformation(employeeDto.getOtherInformation());
+        employee.setProject(employeeDto.getProject());
 
-
-        return employeeRepository.save(employee);
+        employee = employeeRepository.save(employee);
+        return mapStructMapper.employeeDto(employee);
     }
 
-    public Employee updateEmployee(Long id, EmployeeRequets emoloyeeRequets) {
+    public EmployeeDto updateEmployee(Long id, EmployeeDto employeeDto) {
         Employee updateEmployee = employeeRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("İd ait kişisel bilgiler bulunamadı"));
-        updateEmployee.setFirstName(emoloyeeRequets.getFirstName());
-        updateEmployee.setLastName(emoloyeeRequets.getLastName());
-        updateEmployee.setDirector(emoloyeeRequets.getDirector());
-        updateEmployee.setLevel(emoloyeeRequets.getLevel());
-        updateEmployee.setPhoneNumber(emoloyeeRequets.getPhoneNumber());
-        updateEmployee.setEMail(emoloyeeRequets.getEMail());
-        updateEmployee.setWorkType(emoloyeeRequets.getWorkType());
-        updateEmployee.setContractType(emoloyeeRequets.getContractType());
-        updateEmployee.setTeam(emoloyeeRequets.getTeam());
-        updateEmployee.setStartDate(emoloyeeRequets.getStartDate());
-        updateEmployee.setEndDate(emoloyeeRequets.getEndDate());
-        updateEmployee.setPersonalInformation(emoloyeeRequets.getPersonalInformation());
-        updateEmployee.setOtherInformation(emoloyeeRequets.getOtherInformation());
-        updateEmployee.setProject(emoloyeeRequets.getProject());
-        return employeeRepository.save(updateEmployee);
+        updateEmployee.setFirstName(employeeDto.getFirstName());
+        updateEmployee.setLastName(employeeDto.getLastName());
+        updateEmployee.setDirector(employeeDto.getDirector());
+        updateEmployee.setLevel(employeeDto.getLevel());
+        updateEmployee.setPhoneNumber(employeeDto.getPhoneNumber());
+        updateEmployee.setEMail(employeeDto.getEMail());
+        updateEmployee.setWorkType(employeeDto.getWorkType());
+        updateEmployee.setContractType(employeeDto.getContractType());
+        updateEmployee.setTeam(employeeDto.getTeam());
+        updateEmployee.setStartDate(employeeDto.getStartDate());
+        updateEmployee.setEndDate(employeeDto.getEndDate());
+        updateEmployee.setPersonalInformation(employeeDto.getPersonalInformation());
+        updateEmployee.setOtherInformation(employeeDto.getOtherInformation());
+        updateEmployee.setProject(employeeDto.getProject());
+        updateEmployee = employeeRepository.save(updateEmployee);
+        return mapStructMapper.employeeDto(updateEmployee);
+
     }
     public void deleteEmployee(Long id)
     {
 
-        employeeRepository.delete(employeeRepository.findById(id).get());
+        employeeRepository.deleteById(id);
     }
 
 

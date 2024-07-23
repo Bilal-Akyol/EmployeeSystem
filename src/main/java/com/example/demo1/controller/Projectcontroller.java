@@ -1,8 +1,6 @@
 package com.example.demo1.controller;
 
-import com.example.demo1.database.dto.requets.ProjectRequest;
-import com.example.demo1.database.dto.response.ProjectReponse;
-import com.example.demo1.entity.entities.Project;
+import com.example.demo1.mapstruct.dto.ProjectDto;
 import com.example.demo1.sevice.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,20 +18,25 @@ public class Projectcontroller {
     }
 
     @GetMapping
-    public List<ProjectReponse> getAllProject()
+    public List<ProjectDto> getAllProject()
     {
         return projectService.getAllProject();
     }
 
     @PostMapping("/add")
-    public Project addProject(@RequestBody ProjectRequest newProject)
+    public ProjectDto addProject(@RequestBody ProjectDto newProject)
     {
         return projectService.addProject(newProject);
     }
     @PutMapping("/update/{id}")
-    public Project updateProject(@PathVariable Long id, @RequestBody ProjectRequest project)
+    public ProjectDto updateProject(@PathVariable Long id, @RequestBody ProjectDto updateProjectDto)
     {
-      return projectService.updateProject(id, project);
+      return projectService.updateProject(id, updateProjectDto);
+    }
+    @DeleteMapping("/delete/{id}")
+    public void deleteProject(@PathVariable Long id)
+    {
+        projectService.deleteProject(id);
     }
 
 }

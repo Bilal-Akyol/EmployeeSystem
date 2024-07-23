@@ -1,9 +1,9 @@
 package com.example.demo1.sevice;
 
-import com.example.demo1.database.dto.requets.OtherInformationRequets;
-import com.example.demo1.database.dto.response.OtherInformationResponse;
+import com.example.demo1.mapstruct.dto.OtherInformationDto;
+import com.example.demo1.mapstruct.mappers.MapStructMapper;
+import com.example.demo1.repository.OtherInformationRepository;
 import com.example.demo1.entity.entities.OtherInformation;
-import com.example.demo1.database.repository.OtherInformationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,16 +15,18 @@ public class OtherInformationService {
 
     @Autowired
     private OtherInformationRepository otherInformationRepository;
+    private MapStructMapper mapStructMapper;
 
-    public OtherInformationService(OtherInformationRepository otherInformationRepository) {
+    public OtherInformationService(OtherInformationRepository otherInformationRepository,MapStructMapper mapStructMapper) {
         this.otherInformationRepository = otherInformationRepository;
+        this.mapStructMapper=mapStructMapper;
     }
 
-    public List<OtherInformationResponse> getAllOtherInformation() {
+    public List<OtherInformationDto> getAllOtherInformation() {
         List<OtherInformation> otherInformations = otherInformationRepository.findAll();
-        List<OtherInformationResponse> otherInformationResponses = new ArrayList<>();
+        List<OtherInformationDto> otherInformationResponses = new ArrayList<>();
         for (OtherInformation otherInformation : otherInformations) {
-            OtherInformationResponse responseItem = new OtherInformationResponse();
+            OtherInformationDto responseItem = new OtherInformationDto();
             responseItem.setId(otherInformation.getId());
             responseItem.setAddress(otherInformation.getAddress());
             responseItem.setBankName(otherInformation.getBankName());
@@ -37,29 +39,36 @@ public class OtherInformationService {
         return otherInformationResponses;
     }
 
-    public OtherInformation addOtherInformation(OtherInformationRequets otherInformationRequets) {
-        OtherInformation otherInformation = new OtherInformation();
-        otherInformation.setAddress(otherInformationRequets.getAddress());
-        otherInformation.setBankName(otherInformationRequets.getBankName());
-        otherInformation.setIbanNumber(otherInformationRequets.getIbanNumber());
-        otherInformation.setEmergencyContactName(otherInformationRequets.getEmergencyContactName());
-        otherInformation.setEmergencyContactNumber(otherInformationRequets.getEmergencyContactNumber());
+    public OtherInformationDto addOtherInformation(OtherInformationDto otherInformationDto) {
+        OtherInformation otherInformation = mapStructMapper.otherInformationToDto(otherInformationDto);
+        otherInformation.setAddress(otherInformationDto.getAddress());
+        otherInformation.setBankName(otherInformationDto.getBankName());
+        otherInformation.setIbanNumber(otherInformationDto.getIbanNumber());
+        otherInformation.setEmergencyContactName(otherInformationDto.getEmergencyContactName());
+        otherInformation.setEmergencyContactNumber(otherInformationDto.getEmergencyContactNumber());
        // otherInformation.setEmployee(otherInformationRequets.getEmployee());
-        return otherInformationRepository.save(otherInformation);
+        otherInformation=otherInformationRepository.save(otherInformation);
+        return mapStructMapper.otherInformationDto(otherInformation);
     }
 
-    public OtherInformation updateOtherInformation(Long id, OtherInformationRequets otherInformationRequets) {
+    public OtherInformationDto updateOtherInformation(Long id, OtherInformationDto otherInformationDto) {
         OtherInformation updateOtherInformation = otherInformationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("İd ait diğer bilgiler bulunamadı"));
 
-        updateOtherInformation.setAddress(otherInformationRequets.getAddress());
-        updateOtherInformation.setBankName(otherInformationRequets.getBankName());
-        updateOtherInformation.setIbanNumber(otherInformationRequets.getIbanNumber());
-        updateOtherInformation.setEmergencyContactName(otherInformationRequets.getEmergencyContactName());
-        updateOtherInformation.setEmergencyContactNumber(otherInformationRequets.getEmergencyContactNumber());
+        updateOtherInformation.setAddress(otherInformationDto.getAddress());
+        updateOtherInformation.setBankName(otherInformationDto.getBankName());
+        updateOtherInformation.setIbanNumber(otherInformationDto.getIbanNumber());
+        updateOtherInformation.setEmergencyContactName(otherInformationDto.getEmergencyContactName());
+        updateOtherInformation.setEmergencyContactNumber(otherInformationDto.getEmergencyContactNumber());
        // updateOtherInformation.setEmployee(otherInformationRequets.getEmployee());
-        return  otherInformationRepository.save(updateOtherInformation);
+        updateOtherInformation=otherInformationRepository.save(updateOtherInformation);
+        return mapStructMapper.otherInformationDto(updateOtherInformation);
 
+    }
+    public void deleteOtherInformation(Long id)
+    {
+
+        otherInformationRepository.deleteById(id);
     }
 
 

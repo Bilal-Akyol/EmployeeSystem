@@ -1,4 +1,4 @@
-package com.example.demo1.database.dto.response;
+package com.example.demo1.mapstruct.dto;
 
 import com.example.demo1.entity.entities.Employee;
 import lombok.AllArgsConstructor;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class OtherInformationResponse {
+public class OtherInformationDto {
 
     private Long id;
 

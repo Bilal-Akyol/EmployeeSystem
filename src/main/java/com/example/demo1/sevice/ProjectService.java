@@ -1,9 +1,9 @@
 package com.example.demo1.sevice;
 
-import com.example.demo1.database.dto.requets.ProjectRequest;
-import com.example.demo1.database.dto.response.ProjectReponse;
+import com.example.demo1.mapstruct.dto.ProjectDto;
+import com.example.demo1.mapstruct.mappers.MapStructMapper;
+import com.example.demo1.repository.ProjectRepository;
 import com.example.demo1.entity.entities.Project;
-import com.example.demo1.database.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,17 +14,19 @@ import java.util.List;
 public class ProjectService {
     @Autowired
     private ProjectRepository projectRepository;
+    private MapStructMapper mapStructMapper;
 
-    public ProjectService(ProjectRepository projectRepository) {
+    public ProjectService(ProjectRepository projectRepository,MapStructMapper mapStructMapper) {
         this.projectRepository = projectRepository;
+        this.mapStructMapper=mapStructMapper;
     }
-    public List<ProjectReponse> getAllProject()
+    public List<ProjectDto> getAllProject()
     {
         List<Project> projects=projectRepository.findAll();
-        List<ProjectReponse>projectReponses=new ArrayList<>();
+        List<ProjectDto>projectReponses=new ArrayList<>();
         for (Project project:projects)
         {
-            ProjectReponse reponseItem=new ProjectReponse();
+            ProjectDto reponseItem=new ProjectDto();
             reponseItem.setId(project.getId());
             reponseItem.setProjectName(project.getProjectName());
             reponseItem.setProjectType(project.getProjectType());
@@ -38,30 +40,37 @@ public class ProjectService {
         return projectReponses;
     }
 
-    public Project addProject(ProjectRequest projectRequest)
+    public ProjectDto addProject(ProjectDto projectDto)
     {
-        Project project=new Project();
-        projectRequest.setProjectName(project.getProjectName());
-        projectRequest.setProjectType(project.getProjectType());
-        projectRequest.setDepartment(project.getDepartment());
-        projectRequest.setVPNUsername(project.getVPNUsername());
-        projectRequest.setVPNpassword(project.getVPNpassword());
-        projectRequest.setEnvironmentInformation(project.getEnvironmentInformation());
+        Project project=mapStructMapper.projectToDto(projectDto);
+        projectDto.setProjectName(project.getProjectName());
+        projectDto.setProjectType(project.getProjectType());
+        projectDto.setDepartment(project.getDepartment());
+        projectDto.setVPNUsername(project.getVPNUsername());
+        projectDto.setVPNpassword(project.getVPNpassword());
+        projectDto.setEnvironmentInformation(project.getEnvironmentInformation());
        // projectRequest.setEmployee(project.getEmployee());
-        return projectRepository.save(project);
+        project=projectRepository.save(project);
+        return mapStructMapper.projectDto(project);
 
     }
-    public  Project updateProject(Long id, ProjectRequest projectRequest)
+    public  ProjectDto updateProject(Long id, ProjectDto projectDto)
     {
         Project updateProject= projectRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("İd Tanımlı Bir Proje yok"));
-        updateProject.setProjectName(projectRequest.getProjectName());
-        updateProject.setProjectType(projectRequest.getProjectType());
-        updateProject.setDepartment(projectRequest.getDepartment());
-        updateProject.setVPNUsername(projectRequest.getVPNUsername());
-        updateProject.setVPNpassword(projectRequest.getVPNpassword());
-        updateProject.setEnvironmentInformation(projectRequest.getEnvironmentInformation());
-        return projectRepository.save(updateProject);
+        updateProject.setProjectName(projectDto.getProjectName());
+        updateProject.setProjectType(projectDto.getProjectType());
+        updateProject.setDepartment(projectDto.getDepartment());
+        updateProject.setVPNUsername(projectDto.getVPNUsername());
+        updateProject.setVPNpassword(projectDto.getVPNpassword());
+        updateProject.setEnvironmentInformation(projectDto.getEnvironmentInformation());
+        updateProject=projectRepository.save(updateProject);
+        return mapStructMapper.projectDto(updateProject);
+    }
+    public void deleteProject(Long id)
+    {
+
+        projectRepository.deleteById(id);
     }
 
 }
