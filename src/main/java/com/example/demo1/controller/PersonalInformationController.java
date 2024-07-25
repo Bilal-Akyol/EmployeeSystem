@@ -2,6 +2,7 @@ package com.example.demo1.controller;
 
 import com.example.demo1.mapstruct.dto.PersonalInformationDto;
 import com.example.demo1.sevice.PersonalInformationService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,12 +23,12 @@ public class PersonalInformationController {
         return personalInformationService.getAllPersonalInformation();
     }
     @PostMapping("/add")
-    public PersonalInformationDto addPersonalInformation(@RequestBody PersonalInformationDto newPersonalInformation)
+    public PersonalInformationDto addPersonalInformation(@Valid  @RequestBody PersonalInformationDto newPersonalInformation)
     {
         return personalInformationService.addPersonalInformation(newPersonalInformation);
     }
     @PutMapping("/update/{id}")
-    public PersonalInformationDto updatePersonalInformation(@PathVariable Long id, @RequestBody PersonalInformationDto updatePersonalInformationDto)
+    public PersonalInformationDto updatePersonalInformation(@PathVariable Long id,@Valid  @RequestBody PersonalInformationDto updatePersonalInformationDto)
     {
         return personalInformationService.updatePersonalInformation(id,updatePersonalInformationDto);
     }

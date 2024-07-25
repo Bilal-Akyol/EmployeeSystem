@@ -2,6 +2,7 @@ package com.example.demo1.controller;
 
 import com.example.demo1.mapstruct.dto.ProjectDto;
 import com.example.demo1.sevice.ProjectService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,12 +25,12 @@ public class Projectcontroller {
     }
 
     @PostMapping("/add")
-    public ProjectDto addProject(@RequestBody ProjectDto newProject)
+    public ProjectDto addProject(@Valid @RequestBody ProjectDto newProject)
     {
         return projectService.addProject(newProject);
     }
     @PutMapping("/update/{id}")
-    public ProjectDto updateProject(@PathVariable Long id, @RequestBody ProjectDto updateProjectDto)
+    public ProjectDto updateProject(@PathVariable Long id,@Valid   @RequestBody ProjectDto updateProjectDto)
     {
       return projectService.updateProject(id, updateProjectDto);
     }

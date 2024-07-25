@@ -2,6 +2,7 @@ package com.example.demo1.controller;
 
 import com.example.demo1.mapstruct.dto.EmployeeDto;
 import com.example.demo1.sevice.EmployeeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,12 +29,12 @@ public class EmployeeController {
 
     @PostMapping( "/addEmployee")
     @ResponseBody
-    public EmployeeDto addEmployee(@RequestBody EmployeeDto newEmployee)
+    public EmployeeDto addEmployee(@Valid @RequestBody EmployeeDto newEmployee)
     {
         return employeeService.addEmployee(newEmployee);
     }
     @PutMapping("/update/{id}")
-    public EmployeeDto updateEmployee(@PathVariable Long id, @RequestBody EmployeeDto eupdateEmployeeDto)
+    public EmployeeDto updateEmployee(@PathVariable Long id,@Valid  @RequestBody EmployeeDto eupdateEmployeeDto)
     {
         return employeeService.updateEmployee(id,eupdateEmployeeDto);
     }

@@ -2,6 +2,7 @@ package com.example.demo1.controller;
 
 import com.example.demo1.mapstruct.dto.OtherInformationDto;
 import com.example.demo1.sevice.OtherInformationService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,12 +25,12 @@ public class OtherInformationController {
     }
 
     @PostMapping("/add")
-    public OtherInformationDto addOtherInformation(@RequestBody OtherInformationDto newOtherInformation)
+    public OtherInformationDto addOtherInformation(@Valid @RequestBody OtherInformationDto newOtherInformation)
     {
         return otherInformationService.addOtherInformation(newOtherInformation);
     }
     @PutMapping("/update/{id}")
-    public OtherInformationDto updateOtherInformation(@PathVariable Long id,@RequestBody OtherInformationDto updateOtherInformationDto)
+    public OtherInformationDto updateOtherInformation(@PathVariable Long id,@Valid @RequestBody OtherInformationDto updateOtherInformationDto)
     {
 
         return otherInformationService.updateOtherInformation(id,updateOtherInformationDto);
