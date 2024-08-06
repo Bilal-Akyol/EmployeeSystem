@@ -20,17 +20,23 @@ public class PersonalInformationController {
 
     @GetMapping
     public List<PersonalInformationDto> getAllPersonalInformation(){
-        return personalInformationService.getAllPersonalInformation();
+        return personalInformationService.getAllPersonalInformations();
     }
+    @GetMapping("/{id}")
+    public PersonalInformationDto getIdPersonalInformation(@PathVariable Long id)
+    {
+        return personalInformationService.getPersonalInformationById(id);
+    }
+
     @PostMapping("/add")
     public PersonalInformationDto addPersonalInformation(@Valid  @RequestBody PersonalInformationDto newPersonalInformation)
     {
-        return personalInformationService.addPersonalInformation(newPersonalInformation);
+        return personalInformationService.createPersonalInformation(newPersonalInformation);
     }
-    @PutMapping("/update/{id}")
-    public PersonalInformationDto updatePersonalInformation(@PathVariable Long id,@Valid  @RequestBody PersonalInformationDto updatePersonalInformationDto)
+    @PutMapping("/update")
+    public PersonalInformationDto updatePersonalInformation(@Valid  @RequestBody PersonalInformationDto updatePersonalInformationDto)
     {
-        return personalInformationService.updatePersonalInformation(id,updatePersonalInformationDto);
+        return personalInformationService.updatePersonalInformation(updatePersonalInformationDto);
     }
     @DeleteMapping("/delete/{id}")
     public void deletePersonalInformation(@PathVariable Long id)

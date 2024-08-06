@@ -4,6 +4,7 @@ import com.example.demo1.entity.enums.Gender;
 import com.example.demo1.entity.enums.MaritalStatus;
 import com.example.demo1.entity.enums.Military;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -12,7 +13,7 @@ import java.time.LocalDate;
 
 @Entity
 @Data
-@Table(name = "Personal-Infermation")
+@Table(name = "personal-infermation")
 public class PersonalInformation {
 
     @Id
@@ -38,10 +39,6 @@ public class PersonalInformation {
     @Column(name = "Marital-Status")
     private MaritalStatus maritalStatus;
 
-    @OneToOne
-    @JoinColumn(name = "employeeId")
-    @JsonBackReference
-    private Employee employee;
 
 
 

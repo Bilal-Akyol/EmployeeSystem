@@ -4,12 +4,15 @@ import com.example.demo1.entity.enums.ContractType;
 import com.example.demo1.entity.enums.Level;
 import com.example.demo1.entity.enums.Team;
 import com.example.demo1.entity.enums.WorkType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,23 +23,23 @@ import java.util.List;
 public class Employee {
 
     @Id
-    @JsonProperty (value = "EmployeeId")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonProperty(value = "firstName")
+    @Column(name = "firstName")
     private String firstName;
 
-    @JsonProperty(value = "lastName")
+    @Column(name = "lastName")
     private String lastName;
 
+    @ManyToOne
     @JoinColumn(name = "Director")
-    @OneToOne()
     private Employee director;
 
 
     @Enumerated(EnumType.STRING)
-    @JsonProperty(value = "Level")
+    @Column(name = "Level")
     private Level level;
 
 
@@ -47,7 +50,6 @@ public class Employee {
     @Email
     @NotBlank
     @Column(name = "eMail", unique = true)
-    @JsonProperty(value = "eMail")
     private String eMail;
 
     @Enumerated(EnumType.STRING)
@@ -68,16 +70,21 @@ public class Employee {
     @Column(name = "End-Date")
     private LocalDate endDate;
 
-    @OneToOne(mappedBy = "employee", fetch =FetchType.LAZY)
-    @JsonManagedReference
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "personal_information_id", referencedColumnName = "id")
     private PersonalInformation personalInformation;
 
-    @OneToOne(mappedBy = "employee", fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "other_information_id", referencedColumnName = "id")
     private OtherInformation otherInformation;
 
-    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @ManyToMany
+    @JoinTable(
+            name = "employee_project",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "project_id")
+    )
+
     private List<Project> project;
 
 

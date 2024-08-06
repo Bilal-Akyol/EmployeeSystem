@@ -2,8 +2,11 @@ package com.example.demo1.entity.entities;
 
 import com.example.demo1.entity.enums.ProjectType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -32,10 +35,15 @@ public class Project {
     @Column(name = "EnvironmentInformation")
     private String EnvironmentInformation;
 
-    @ManyToOne
-    @JoinColumn(name = "employee-id")
-    @JsonBackReference
-    private Employee employee;
+    @ManyToMany
+    @JoinTable(
+            name = "employee_project",
+            joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "employee_id")
+    )
+
+    private List<Employee> employees;
+
 
 
 }

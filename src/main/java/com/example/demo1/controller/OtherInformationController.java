@@ -21,19 +21,24 @@ public class OtherInformationController {
     @GetMapping
     public List<OtherInformationDto> getAllOtherInformation()
     {
-        return otherInformationService.getAllOtherInformation();
+        return otherInformationService.getAllOtherInformations();
+    }
+    @GetMapping("/{id}")
+    public OtherInformationDto getIdEOtherInformation(@PathVariable Long id)
+    {
+        return otherInformationService.getOtherInformationById(id);
     }
 
     @PostMapping("/add")
     public OtherInformationDto addOtherInformation(@Valid @RequestBody OtherInformationDto newOtherInformation)
     {
-        return otherInformationService.addOtherInformation(newOtherInformation);
+        return otherInformationService.createOtherInformation(newOtherInformation);
     }
-    @PutMapping("/update/{id}")
-    public OtherInformationDto updateOtherInformation(@PathVariable Long id,@Valid @RequestBody OtherInformationDto updateOtherInformationDto)
+    @PutMapping("/update")
+    public OtherInformationDto updateOtherInformation(@Valid @RequestBody OtherInformationDto updateOtherInformationDto)
     {
 
-        return otherInformationService.updateOtherInformation(id,updateOtherInformationDto);
+        return otherInformationService.updateOtherInformation(updateOtherInformationDto);
     }
     @DeleteMapping("/delete/{id}")
     public void deleteOtherInformation(@PathVariable Long id)

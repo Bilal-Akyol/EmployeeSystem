@@ -15,28 +15,31 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
 
+
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
-
-
     }
 
     @GetMapping
     public List<EmployeeDto> getAllEmployee()
     {
-        return employeeService.getAllEmployee();
+        return employeeService.getAllEmployees();
+    }
+    @GetMapping("/{id}")
+    public EmployeeDto getIdEmployee(@PathVariable Long id)
+    {
+        return employeeService.getEmployeeById(id);
     }
 
     @PostMapping( "/addEmployee")
-    @ResponseBody
     public EmployeeDto addEmployee(@Valid @RequestBody EmployeeDto newEmployee)
     {
-        return employeeService.addEmployee(newEmployee);
+        return employeeService.createEmployee(newEmployee);
     }
-    @PutMapping("/update/{id}")
-    public EmployeeDto updateEmployee(@PathVariable Long id,@Valid  @RequestBody EmployeeDto eupdateEmployeeDto)
+    @PutMapping("/update")
+    public EmployeeDto updateEmployee(@Valid  @RequestBody EmployeeDto eupdateEmployeeDto)
     {
-        return employeeService.updateEmployee(id,eupdateEmployeeDto);
+        return employeeService.updateEmployee(eupdateEmployeeDto);
     }
     @DeleteMapping("/delete/{id}")
     public void deleteEmmployee(@PathVariable Long id)

@@ -1,6 +1,7 @@
 package com.example.demo1.mapstruct.dto;
 
-import com.example.demo1.entity.entities.Employee;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.JoinColumn;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -29,5 +30,7 @@ public class OtherInformationDto {
 
     private String emergencyContactNumber;
 
-    private Employee employee;
+
+
+
 }

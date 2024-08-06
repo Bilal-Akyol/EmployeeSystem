@@ -1,19 +1,17 @@
 package com.example.demo1.mapstruct.dto;
 
 import com.example.demo1.entity.entities.Employee;
-import com.example.demo1.entity.entities.OtherInformation;
-import com.example.demo1.entity.entities.PersonalInformation;
-import com.example.demo1.entity.entities.Project;
 import com.example.demo1.entity.enums.ContractType;
 import com.example.demo1.entity.enums.Level;
 import com.example.demo1.entity.enums.Team;
 import com.example.demo1.entity.enums.WorkType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -22,6 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmployeeDto {
+
 
     private Long id;
 
@@ -34,7 +33,7 @@ public class EmployeeDto {
     private String lastName;
 
 
-    private Employee director;
+    private EmployeeDto director;
 
 
     private Level level;
@@ -53,18 +52,17 @@ public class EmployeeDto {
 
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Lütfen work type (Uzaktan, Ofisten, Hibrit) seçeneklerinden birini yazınız")
-    @Size(min = 1)
+
     private WorkType workType;
 
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Lütfen bu alanı kontrat tipini  yazınız")
-    @Size(min = 1)
     private ContractType contractType;
 
 
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Lütfen ait olduğunuz takımı yazınız")
-    @Size(min = 1)
+
     private Team team;
 
     @Enumerated(EnumType.STRING)
@@ -76,11 +74,15 @@ public class EmployeeDto {
     private LocalDate endDate;
 
 
-    private PersonalInformation personalInformation;
+    private PersonalInformationDto personalInformation;
 
 
-    private OtherInformation otherInformation;
+    private OtherInformationDto otherInformation;
 
 
-    private List<Project> project;
+
+    private List<ProjectDto> projects;
+
+
+
 }

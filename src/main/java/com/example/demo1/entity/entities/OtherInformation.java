@@ -1,12 +1,13 @@
 package com.example.demo1.entity.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "OtherInformation")
+@Table(name = "other_information")
 public class OtherInformation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,10 +28,6 @@ public class OtherInformation {
     @Column(name = "EmergencyContactNumber")
     private String emergencyContactNumber;
 
-    @OneToOne
-    @JoinColumn(name = "employee-id")
-    @JsonBackReference
-    private Employee employee;
 
 
 }

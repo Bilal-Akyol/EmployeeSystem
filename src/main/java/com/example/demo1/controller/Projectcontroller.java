@@ -21,18 +21,23 @@ public class Projectcontroller {
     @GetMapping
     public List<ProjectDto> getAllProject()
     {
-        return projectService.getAllProject();
+        return projectService.getAllProjects();
+    }
+    @GetMapping("/{id}")
+    public ProjectDto getIdProject(@PathVariable Long id)
+    {
+        return projectService.getProjectById(id);
     }
 
     @PostMapping("/add")
     public ProjectDto addProject(@Valid @RequestBody ProjectDto newProject)
     {
-        return projectService.addProject(newProject);
+        return projectService.createProject(newProject);
     }
     @PutMapping("/update/{id}")
-    public ProjectDto updateProject(@PathVariable Long id,@Valid   @RequestBody ProjectDto updateProjectDto)
+    public ProjectDto updateProject(@PathVariable Long id, @Valid @RequestBody ProjectDto projectDTO)
     {
-      return projectService.updateProject(id, updateProjectDto);
+      return projectService.updateProject(id,projectDTO);
     }
     @DeleteMapping("/delete/{id}")
     public void deleteProject(@PathVariable Long id)

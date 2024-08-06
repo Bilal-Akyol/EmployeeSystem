@@ -1,10 +1,12 @@
 package com.example.demo1.mapstruct.dto;
 
-import com.example.demo1.entity.entities.Employee;
 import com.example.demo1.entity.enums.Gender;
 import com.example.demo1.entity.enums.MaritalStatus;
 import com.example.demo1.entity.enums.Military;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.JoinColumn;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,12 +25,12 @@ public class PersonalInformationDto {
     @NotBlank(message = "Kimlik numarası zorunludur, Lütfen kimlik numaranızı yazınız")
     private String nationalId;
 
-    @NotBlank(message = "Askerlik alanı boş bırakılamaz, Lütfen doldurunuz")
+    @NotNull(message = "Askerlik alanı boş bırakılamaz, Lütfen doldurunuz")
     private Military military;
 
     private Gender gender;
 
     private MaritalStatus maritalStatus;
 
-    private Employee employee;
+
 }
