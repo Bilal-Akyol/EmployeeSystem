@@ -30,7 +30,7 @@ public class MapStructMapper{
         employeeDto.setDirector(employeeDto.getDirector());
         employeeDto.setLevel(employee.getLevel());
         employeeDto.setPhoneNumber(employee.getPhoneNumber());
-        employeeDto.setEMail(employee.getEMail());
+        employeeDto.setEmail(employee.getEmail());
         employeeDto.setWorkType(employee.getWorkType());
         employeeDto.setContractType(employee.getContractType());
         employeeDto.setTeam(employee.getTeam());
@@ -55,7 +55,7 @@ public class MapStructMapper{
         employee.setDirector(dtoToEmployee(employeeDto.getDirector()));
         employee.setLevel(employeeDto.getLevel());
         employee.setPhoneNumber(employeeDto.getPhoneNumber());
-        employee.setEMail(employeeDto.getEMail());
+        employee.setEmail(employeeDto.getEmail());
         employee.setWorkType(employeeDto.getWorkType());
         employee.setContractType(employeeDto.getContractType());
         employee.setTeam(employeeDto.getTeam());

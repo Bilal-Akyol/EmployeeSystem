@@ -2,8 +2,10 @@ package com.example.demo1.controller;
 
 import com.example.demo1.mapstruct.dto.EmployeeDto;
 import com.example.demo1.sevice.EmployeeService;
+import com.example.demo1.validation.EmployeeValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,11 +15,19 @@ import java.util.List;
 public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
+    @Autowired
+    private EmployeeValidator employeeValidator;
 
 
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.setValidator(employeeValidator);
+    }
 
-    public EmployeeController(EmployeeService employeeService) {
+
+    public EmployeeController(EmployeeService employeeService, EmployeeValidator employeeValidator) {
         this.employeeService = employeeService;
+        this.employeeValidator= employeeValidator;
     }
 
     @GetMapping
@@ -42,7 +52,7 @@ public class EmployeeController {
         return employeeService.updateEmployee(eupdateEmployeeDto);
     }
     @DeleteMapping("/delete/{id}")
-    public void deleteEmmployee(@PathVariable Long id)
+    public void deleteEmployee(@PathVariable Long id)
     {
         employeeService.deleteEmployee(id);
     }

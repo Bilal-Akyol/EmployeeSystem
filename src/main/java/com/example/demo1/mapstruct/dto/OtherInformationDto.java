@@ -1,7 +1,5 @@
 package com.example.demo1.mapstruct.dto;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.JoinColumn;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -21,8 +19,9 @@ public class OtherInformationDto {
     private String address;
 
     private String bankName;
-    @Size(min = 1)
+
     @NotBlank(message = "İban numarası zorunludur, size ait bir iban numarası giriniz")
+
     private String ibanNumber;
 
     private String emergencyContactName;

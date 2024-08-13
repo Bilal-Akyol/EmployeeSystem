@@ -34,7 +34,6 @@ public class EmployeeService {
     PersonalInformationRepository personalInformationRepository;
     @Autowired
     OtherInformationRepository otherInformationRepository;
-
     public List<EmployeeDto> getAllEmployees() {
         List<Employee> employees = employeeRepository.findAll();
         return employees.stream()
@@ -75,7 +74,7 @@ public class EmployeeService {
             employee.setDirector(mapStructMapper.dtoToEmployee(employeeDto.getDirector()));
             employee.setLevel(employeeDto.getLevel());
             employee.setPhoneNumber(employeeDto.getPhoneNumber());
-            employee.setEMail(employeeDto.getEMail());
+            employee.setEmail(employeeDto.getEmail());
             employee.setWorkType(employeeDto.getWorkType());
             employee.setContractType(employeeDto.getContractType());
             employee.setTeam(employeeDto.getTeam());

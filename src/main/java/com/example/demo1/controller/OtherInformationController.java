@@ -2,8 +2,10 @@ package com.example.demo1.controller;
 
 import com.example.demo1.mapstruct.dto.OtherInformationDto;
 import com.example.demo1.sevice.OtherInformationService;
+import com.example.demo1.validation.OtherInformationValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +15,13 @@ import java.util.List;
 public class OtherInformationController {
     @Autowired
     private OtherInformationService otherInformationService;
+    @Autowired
+    private OtherInformationValidator otherInformationValidator;
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.setValidator(otherInformationValidator);
+    }
 
     public OtherInformationController(OtherInformationService otherInformationService) {
         this.otherInformationService = otherInformationService;

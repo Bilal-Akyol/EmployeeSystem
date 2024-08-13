@@ -45,30 +45,30 @@ public class ProjectService {
     }
 
     public ProjectDto updateProject(Long projectId, ProjectDto projectDTO) {
-        Project existingProject = projectRepository.findById(projectId)
+        Project project = projectRepository.findById(projectId)
                 .orElseThrow(() -> new IllegalArgumentException("Project not found"));
 
 
 
 
-        existingProject.setProjectName(projectDTO.getProjectName());
-        existingProject.setProjectType(ProjectType.valueOf(String.valueOf(projectDTO.getProjectType())));
-        existingProject.setDepartment(projectDTO.getDepartment());
-        existingProject.setVPNUsername(projectDTO.getVPNUsername());
-        existingProject.setVPNpassword(projectDTO.getVPNpassword());
-        existingProject.setEnvironmentInformation(projectDTO.getEnvironmentInformation());
+        project.setProjectName(projectDTO.getProjectName());
+        project.setProjectType(ProjectType.valueOf(String.valueOf(projectDTO.getProjectType())));
+        project.setDepartment(projectDTO.getDepartment());
+        project.setVPNUsername(projectDTO.getVPNUsername());
+        project.setVPNpassword(projectDTO.getVPNpassword());
+        project.setEnvironmentInformation(projectDTO.getEnvironmentInformation());
 
         if (projectDTO.getEmployeeIds() != null) {
             List<Employee> employees = projectDTO.getEmployeeIds().stream()
                     .map(id -> employeeRepository.findById(id)
                             .orElseThrow(() -> new IllegalArgumentException("Employee not found")))
                     .collect(Collectors.toList());
-            existingProject.setEmployees(employees);
+            project.setEmployees(employees);
         }
 
 
 
-        Project savedProject = projectRepository.save(existingProject);
+        Project savedProject = projectRepository.save(project);
         return mapStructMapper.projectToDto(savedProject);
     }
 

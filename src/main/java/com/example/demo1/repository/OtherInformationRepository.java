@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OtherInformationRepository extends JpaRepository<OtherInformation,Long> {
+    boolean existsByIbanNumber(String ibanNumber);
 }

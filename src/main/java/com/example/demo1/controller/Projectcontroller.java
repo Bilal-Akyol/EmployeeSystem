@@ -2,8 +2,10 @@ package com.example.demo1.controller;
 
 import com.example.demo1.mapstruct.dto.ProjectDto;
 import com.example.demo1.sevice.ProjectService;
+import com.example.demo1.validation.ProjectValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +15,12 @@ import java.util.List;
 public class Projectcontroller {
     @Autowired
     private ProjectService projectService;
+    @Autowired
+    private ProjectValidator projectValidator;
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.setValidator(projectValidator);
+    }
 
     public Projectcontroller(ProjectService projectService) {
         this.projectService = projectService;

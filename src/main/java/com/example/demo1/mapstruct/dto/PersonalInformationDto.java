@@ -3,8 +3,6 @@ package com.example.demo1.mapstruct.dto;
 import com.example.demo1.entity.enums.Gender;
 import com.example.demo1.entity.enums.MaritalStatus;
 import com.example.demo1.entity.enums.Military;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.JoinColumn;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -21,7 +19,8 @@ public class PersonalInformationDto {
     private Long id;
 
     private LocalDate birthDate;
-    @Size(min = 11,max = 11,message = "Lütfen 11 haneli tc kilik numaranızı giriniz")
+
+    @Size(min = 11,max = 11,message = "Lütfen 11 haneli tc kimlik numaranızı giriniz")
     @NotBlank(message = "Kimlik numarası zorunludur, Lütfen kimlik numaranızı yazınız")
     private String nationalId;
 

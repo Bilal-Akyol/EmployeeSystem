@@ -22,24 +22,22 @@ public class ProjectDto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Proje ismi giriniz lütfen")
+
     private String projectName;
 
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "Lütfen bir proje tipi giriniz")
+
     private ProjectType projectType;
 
     private String department;
 
-    @NotNull(message = "Bu alan zorunludur")
+
     private String vPNUsername;
 
-    @Size(min = 8, message ="Lütfen en az 8 haneli bir şifre belirleyin")
-    @NotNull(message = "Bu alan zorunludur")
+
     private String vPNpassword;
 
-    @Size(min = 2)
-    @NotNull(message = "Ortam bilgilerini girmek zorundasınız")
+
     private String EnvironmentInformation;
 
 

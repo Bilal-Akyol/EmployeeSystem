@@ -47,10 +47,9 @@ public class Employee {
     @Column(name = "Phone-Number", unique = true)
     private String phoneNumber;
 
-    @Email
     @NotBlank
-    @Column(name = "eMail", unique = true)
-    private String eMail;
+    @Column(name = "email", unique = true)
+    private String email;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "Work-Type")
